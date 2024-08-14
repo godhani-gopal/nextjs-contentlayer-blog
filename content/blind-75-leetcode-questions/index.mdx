@@ -1,0 +1,217 @@
+---
+title: "blind 75 leetcode questions"
+description: Explore the LeetCode Blind 75 list, a curated set of top interview questions. Includes links to detailed solutions and LeetCode problem pages.
+image: "../../public/blogs/blind75leetcode.png"
+publishedAt: "2024-07-30"
+updatedAt: "2024-07-30"
+author: "Gopal Godhani"
+isPublished: true
+tags: 
+- leetcode
+- coding interviews
+- programming
+- blind 75
+---
+
+# LeetCode Blind 75: Comprehensive Guide and Solutions
+
+## Introduction
+
+The LeetCode Blind 75 list is a curated set of 75 problems that are essential for coding interview preparation. This guide categorizes each problem by topic, providing descriptions, difficulty levels, and links to both the LeetCode problem pages and detailed solutions.
+
+**Example 1:**
+
+**Input:** `nums = [2,7,11,15], target = 9{:java}`  
+**Output:** `[0,1]{:java}`  
+**Explanation:** Because `nums[0] + nums[1] == 9{:java}`, we return `[0, 1]{:java}`.
+
+**Example 2:**
+
+**Input:** nums = [3,2,4], target = 6  
+**Output:** [1,2]
+
+**Example 3:**
+
+**Input:** nums = [3,3], target = 6  
+**Output:** [0,1]
+
+**Constraints:**
+
+- `2 <= nums.length <= 10^4{:java}`
+- `-10^9 <= nums[i] <= 10^9{:java}`
+- `-10^9 <= target <= 10^9{:java}`
+- **Only one valid answer exists.**
+
+```java
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        
+        for (int i = 0; i < nums.length; i++) {
+            int currentValue = nums[i];
+            int complement = target - currentValue;
+            if (map.containsKey(complement)) {
+                return new int[] { map.get(complement), i };
+            }
+            map.put(currentValue, i);
+        }
+        return null;
+    }
+}
+```
+
+## Arrays
+
+### Resources to Learn About Arrays
+- [LeetCode Learn - Arrays](https://leetcode.com/explore/learn/card/fun-with-arrays/)
+
+- <a href="https://leetcode.com/explore/learn/card/fun-with-arrays/" target="_blank">LeetCode Learn - Arrays</a>
+
+### Time and Space Complexities
+- **Access**: O(1) time
+- **Search**: O(n) time
+- **Insertion**: O(n) time (if shifting elements is required)
+- **Deletion**: O(n) time (if shifting elements is required)
+- **Space Complexity**: O(n)
+
+### Problems
+
+| Problem | Description | Difficulty | Solution |
+|---------|-------------|------------|----------|
+| [Two Sum](https://leetcode.com/problems/two-sum/) | Find two numbers in an array that add up to a given target. You cannot use the same element twice. | Easy | [Detailed Solution](link-to-your-article) |
+| [Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/) | Find the maximum profit you can achieve from buying and selling stock. | Easy | [Detailed Solution](link-to-your-article) |
+| [Contains Duplicate](https://leetcode.com/problems/contains-duplicate/) | Determine if an array contains any duplicates. | Easy | [Detailed Solution](link-to-your-article) |
+| [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) | Given an array, return an array output such that output[i] is equal to the product of all the elements of nums except nums[i]. | Medium | [Detailed Solution](link-to-your-article) |
+| [Maximum Subarray](https://leetcode.com/problems/maximum-subarray/) | Find the contiguous subarray which has the largest sum. | Easy | [Detailed Solution](link-to-your-article) |
+| [Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/) | Find the contiguous subarray within an array which has the largest product. | Medium | [Detailed Solution](link-to-your-article) |
+| [Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/) | Find the minimum element in a rotated sorted array. | Medium | [Detailed Solution](link-to-your-article) |
+| [Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/) | Given a rotated sorted array, find the index of a target value. | Medium | [Detailed Solution](link-to-your-article) |
+| [3 Sum](https://leetcode.com/problems/3sum/) | Find all unique triplets in the array which gives the sum of zero. | Medium | [Detailed Solution](link-to-your-article) |
+| [Container With Most Water](https://leetcode.com/problems/container-with-most-water/) | Given n non-negative integers representing an elevation map, find two lines that together with the x-axis form a container, such that the container contains the most water. | Medium | [Detailed Solution](link-to-your-article) |
+
+## Binary
+
+| Problem | Description | Difficulty | Solution |
+|---------|-------------|------------|----------|
+| [Sum of Two Integers](https://leetcode.com/problems/sum-of-two-integers/) | Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -. | Medium | [Detailed Solution](link-to-your-article) |
+| [Number of 1 Bits](https://leetcode.com/problems/number-of-1-bits/) | Write a function that takes an unsigned integer and returns the number of '1' bits it has. | Easy | [Detailed Solution](link-to-your-article) |
+| [Counting Bits](https://leetcode.com/problems/counting-bits/) | Given an integer num, return an array of the number of 1's in the binary representation of each number in the range [0, num]. | Easy | [Detailed Solution](link-to-your-article) |
+| [Missing Number](https://leetcode.com/problems/missing-number/) | Given an array containing n distinct numbers taken from 0, 1, 2, ..., n, find the one that is missing from the array. | Easy | [Detailed Solution](link-to-your-article) |
+| [Reverse Bits](https://leetcode.com/problems/reverse-bits/) | Reverse bits of a given 32 bits unsigned integer. | Easy | [Detailed Solution](link-to-your-article) |
+
+## Dynamic Programming
+
+| Problem | Description | Difficulty | Solution |
+|---------|-------------|------------|----------|
+| [Climbing Stairs](https://leetcode.com/problems/climbing-stairs/) | Given n steps, find the number of distinct ways you can climb to the top. | Easy | [Detailed Solution](link-to-your-article) |
+| [Coin Change](https://leetcode.com/problems/coin-change/) | Given different coin denominations and a total amount, find the minimum number of coins needed to make up that amount. | Medium | [Detailed Solution](link-to-your-article) |
+| [Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/) | Given an integer array, return the length of the longest increasing subsequence. | Medium | [Detailed Solution](link-to-your-article) |
+| [Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/) | Given two strings, find the length of their longest common subsequence. | Medium | [Detailed Solution](link-to-your-article) |
+| [Word Break Problem](https://leetcode.com/problems/word-break/) | Given a string and a dictionary of words, determine if the string can be segmented into a space-separated sequence of one or more dictionary words. | Medium | [Detailed Solution](link-to-your-article) |
+| [Combination Sum](https://leetcode.com/problems/combination-sum/) | Given an array of distinct integers and a target number, return all possible combinations that add up to the target. | Medium | [Detailed Solution](link-to-your-article) |
+| [House Robber](https://leetcode.com/problems/house-robber/) | Given a list of non-negative integers representing the amount of money of each house, determine the maximum amount of money you can rob tonight without alerting the police. | Medium | [Detailed Solution](link-to-your-article) |
+| [House Robber II](https://leetcode.com/problems/house-robber-ii/) | All houses are arranged in a circle. Find the maximum amount of money you can rob tonight without alerting the police. | Medium | [Detailed Solution](link-to-your-article) |
+| [Decode Ways](https://leetcode.com/problems/decode-ways/) | Given an encoded message, determine the total number of ways to decode it. | Medium | [Detailed Solution](link-to-your-article) |
+| [Unique Paths](https://leetcode.com/problems/unique-paths/) | A robot is located at the top-left corner of a m x n grid. Find how many possible unique paths there are to reach the bottom-right corner. | Medium | [Detailed Solution](link-to-your-article) |
+| [Jump Game](https://leetcode.com/problems/jump-game/) | Given an array of non-negative integers, determine if you are able to reach the last index. | Medium | [Detailed Solution](link-to-your-article) |
+
+## Graph
+
+| Problem | Description | Difficulty | Solution |
+|---------|-------------|------------|----------|
+| [Clone Graph](https://leetcode.com/problems/clone-graph/) | Given a reference of a node in a connected undirected graph, return a deep copy (clone) of the graph. | Medium | [Detailed Solution](link-to-your-article) |
+| [Course Schedule](https://leetcode.com/problems/course-schedule/) | Determine if you can finish all courses given the prerequisites. | Medium | [Detailed Solution](link-to-your-article) |
+| [Pacific Atlantic Water Flow](https://leetcode.com/problems/pacific-atlantic-water-flow/) | Find all the cells that can flow to both the Pacific and Atlantic oceans. | Medium | [Detailed Solution](link-to-your-article) |
+| [Number of Islands](https://leetcode.com/problems/number-of-islands/) | Given a 2D grid map of '1's (land) and '0's (water), count the number of islands. | Medium | [Detailed Solution](link-to-your-article) |
+| [Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/) | Given an unsorted array of integers, find the length of the longest consecutive elements sequence. | Medium | [Detailed Solution](link-to-your-article) |
+| [Alien Dictionary](https://leetcode.com/problems/alien-dictionary/) (Leetcode Premium) | Given a sorted dictionary of an alien language, find the order of characters in the language. | Hard | [Detailed Solution](link-to-your-article) |
+| [Graph Valid Tree](https://leetcode.com/problems/graph-valid-tree/) (Leetcode Premium) | Given n nodes labeled from 0 to n-1 and a list of undirected edges, determine if these edges make up a valid tree. | Medium | [Detailed Solution](link-to-your-article) |
+| [Number of Connected Components in an Undirected Graph](https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/) (Leetcode Premium) | Given n nodes and a list of edges, find the number of connected components in an undirected graph. | Medium | [Detailed Solution](link-to-your-article) |
+
+## Interval
+
+| Problem | Description | Difficulty | Solution |
+|---------|-------------|------------|----------|
+| [Insert Interval](https://leetcode.com/problems/insert-interval/) | Given a set of non-overlapping intervals, insert a new interval into the intervals (merge if necessary). | Medium | [Detailed Solution](link-to-your-article) |
+| [Merge Intervals](https://leetcode.com/problems/merge-intervals/) | Given a collection of intervals, merge all overlapping intervals. | Medium | [Detailed Solution](link-to-your-article) |
+| [Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/) | Find the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping. | Medium | [Detailed Solution](link-to-your-article) |
+| [Meeting Rooms](https://leetcode.com/problems/meeting-rooms/) (Leetcode Premium) | Given an array of meeting time intervals, determine if a person could attend all meetings. | Easy | [Detailed Solution](link-to-your-article) |
+| [Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii/) (Leetcode Premium) | Given an array of meeting time intervals, find the minimum number of conference rooms required. | Medium | [Detailed Solution](link-to-your-article) |
+
+## Linked List
+
+| Problem | Description | Difficulty | Solution |
+|---------|-------------|------------|----------|
+| [Reverse a Linked List](https://leetcode.com/problems/reverse-linked-list/) | Reverse a singly linked list. | Easy | [Detailed Solution](link-to-your-article) |
+| [Detect Cycle in a Linked List](https://leetcode.com/problems/linked-list-cycle/) | Determine if a linked list has a cycle in it. | Easy | [Detailed Solution](link-to-your-article) |
+| [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/) | Merge two sorted linked lists and return it as a new sorted list. | Easy | [Detailed Solution](link-to-your-article) |
+| [Merge K Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/) | Merge k sorted linked lists and return it as one sorted list. | Hard | [Detailed Solution](link-to-your-article) |
+| [Remove Nth Node From End Of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/) | Remove the nth node from the end of the list and return its head. | Medium | [Detailed Solution](link-to-your-article) |
+| [Reorder List](https://leetcode.com/problems/reorder-list/) | Given a singly linked list, reorder it to: L0 → Ln → L1 → Ln-1 → L2 → Ln-2 → ... | Medium | [Detailed Solution](link-to-your-article) |
+
+## Matrix
+
+| Problem | Description | Difficulty | Solution |
+|---------|-------------|------------|----------|
+| [Set Matrix Zeroes](https://leetcode.com/problems/set-matrix-zeroes/) | Given an m x n matrix, if an element is 0, set its entire row and column to 0. | Medium | [Detailed Solution](link-to-your-article) |
+| [Spiral Matrix](https://leetcode.com/problems/spiral-matrix/) | Given an m x n matrix, return all elements of the matrix in spiral order. | Medium | [Detailed Solution](link-to-your-article) |
+| [Rotate Image](https://leetcode.com/problems/rotate-image/) | Rotate an n x n 2D matrix 90 degrees clockwise. | Medium | [Detailed Solution](link-to-your-article) |
+| [Word Search](https://leetcode.com/problems/word-search/) | Given a 2D board and a word, find if the word exists in the grid. | Medium | [Detailed Solution](link-to-your-article) |
+
+## String
+
+| Problem | Description | Difficulty | Solution |
+|---------|-------------|------------|----------|
+| [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | Find the length of the longest substring without repeating characters in a given string. | Medium | [Detailed Solution](link-to-your-article) |
+| [Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement/) | Given a string, find the length of the longest substring containing the same letter you can get after performing k replacements. | Medium | [Detailed Solution](link-to-your-article) |
+| [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/) | Given a string and a string t, find the minimum window in the string which will contain all the characters in t. | Hard | [Detailed Solution](link-to-your-article) |
+| [Valid Anagram](https://leetcode.com/problems/valid-anagram/) | Determine if two strings are anagrams of each other. | Easy | [Detailed Solution](link-to-your-article) |
+| [Group Anagrams](https://leetcode.com/problems/group-anagrams/) | Given an array of strings, group the anagrams together. | Medium | [Detailed Solution](link-to-your-article) |
+| [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) | Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid. | Easy | [Detailed Solution](link-to-your-article) |
+| [Valid Palindrome](https://leetcode.com/problems/valid-palindrome/) | Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases. | Easy | [Detailed Solution](link-to-your-article) |
+| [Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/) | Given a string, return the longest palindromic substring. | Medium | [Detailed Solution](link-to-your-article) |
+| [Palindromic Substrings](https://leetcode.com/problems/palindromic-substrings/) | Given a string, count the number of distinct palindromic substrings in it. | Medium | [Detailed Solution](link-to-your-article) |
+| [Encode and Decode Strings](https://leetcode.com/problems/encode-and-decode-strings/) (Leetcode Premium) | Design an algorithm to encode a list of strings to a string. The encoded string is then sent over the network and decoded back to the original list of strings. | Medium | [Detailed Solution](link-to-your-article) |
+
+## Tree
+
+| Problem | Description | Difficulty | Solution |
+|---------|-------------|------------|----------|
+| [Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | Given a binary tree, find its maximum depth. | Easy | [Detailed Solution](link-to-your-article) |
+| [Same Tree](https://leetcode.com/problems/same-tree/) | Given two binary trees, write a function to check if they are the same or not. | Easy | [Detailed Solution](link-to-your-article) |
+| [Invert/Flip Binary Tree](https://leetcode.com/problems/invert-binary-tree/) | Invert a binary tree. | Easy | [Detailed Solution](link-to-your-article) |
+| [Binary Tree Maximum Path Sum](https://leetcode.com/problems/binary-tree-maximum-path-sum/) | Given a non-empty binary tree, find the maximum path sum. | Hard | [Detailed Solution](link-to-your-article) |
+| [Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/) | Given a binary tree, return the level order traversal of its nodes' values. | Medium | [Detailed Solution](link-to-your-article) |
+| [Serialize and Deserialize Binary Tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/) | Design an algorithm to serialize and deserialize a binary tree. | Hard | [Detailed Solution](link-to-your-article) |
+| [Subtree of Another Tree](https://leetcode.com/problems/subtree-of-another-tree/) | Given two non-empty binary trees s and t, check whether tree t has exactly the same structure and node values with a subtree of s. | Easy | [Detailed Solution](link-to-your-article) |
+| [Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/) | Given preorder and inorder traversal of a tree, construct the binary tree. | Medium | [Detailed Solution](link-to-your-article) |
+| [Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/) | Given a binary tree, determine if it is a valid binary search tree. | Medium | [Detailed Solution](link-to-your-article) |
+| [Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/) | Given a binary search tree, write a function to find the kth smallest element in it. | Medium | [Detailed Solution](link-to-your-article) |
+| [Lowest Common Ancestor of BST](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) | Given a binary search tree (BST), find the lowest common ancestor (LCA) of two given nodes in the BST. | Medium | [Detailed Solution](link-to-your-article) |
+| [Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/) | Implement a trie with insert, search, and startsWith methods. | Medium | [Detailed Solution](link-to-your-article) |
+
+## Heap
+
+| Problem | Description | Difficulty | Solution |
+|---------|-------------|------------|----------|
+| [Merge K Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/) | Merge k sorted linked lists and return it as one sorted list. | Hard | [Detailed Solution](link-to-your-article) |
+| [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) | Given a non-empty array of integers, return the k most frequent elements. | Medium | [Detailed Solution](link-to-your-article) |
+| [Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/) | The median is the middle value in an ordered integer list. Write a function to find the median of the data stream. | Hard | [Detailed Solution](link-to-your-article) |
+
+## Miscellaneous
+
+| Problem | Description | Difficulty | Solution |
+|---------|-------------|------------|----------|
+| [Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/) | Design a data structure that supports all following operations in average O(1) time. | Medium | [Detailed Solution](link-to-your-article) |
+| [LRU Cache](https://leetcode.com/problems/lru-cache/) | Design a data structure that follows the constraints of a Least Recently Used (LRU) cache. | Medium | [Detailed Solution](link-to-your-article) |
+| [Word Break](https://leetcode.com/problems/word-break/) | Given a string and a dictionary of words, determine if the string can be segmented into a space-separated sequence of one or more dictionary words. | Medium | [Detailed Solution](link-to-your-article) |
+
+## Advanced
+
+| Problem | Description | Difficulty | Solution |
+|---------|-------------|------------|----------|
+| [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/) | Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining. | Hard | [Detailed Solution](link-to-your-article) |
+| [N-Queens](https://leetcode.com/problems/n-queens/) | The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other. | Hard | [Detailed Solution](link-to-your-article) |
+| [LFU Cache](https://leetcode.com/problems/lfu-cache/) | Design and implement a data structure for Least Frequently Used (LFU) cache. | Hard | [Detailed Solution](link-to-your-article) |
+
+This should give you a good starting point to compile your comprehensive guide for the LeetCode Blind 75 problems. Each entry provides a link to the problem, a brief description, the difficulty level, and a placeholder for your detailed solution. Let me know if you need any more information or assistance!

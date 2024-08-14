@@ -1,0 +1,136 @@
+---
+title: "Understanding Heaps: An In-Depth Exploration"
+description: "Heap data structure overview."
+image: "../../public/blogs/blind75leetcode.png"
+publishedAt: "2024-07-30"
+updatedAt: "2024-07-30"
+author: "Gopal Godhani"
+isPublished: true
+tags:
+  - leetcode
+  - coding interviews
+  - programming
+  - data structures
+  - heap
+  - hashtable
+---
+
+## Introduction
+
+A heap is a powerful and efficient data structure that underpins various algorithms and applications, particularly in scenarios requiring efficient retrieval of the minimum or maximum elements. It is commonly used to implement a **priority queue**, although the two terms are often used interchangeably.
+
+> A priority queue is an abstract data structure that allows elements to be added and retrieved based on their priority, which is often their value. A heap is one of the most popular implementations of a priority queue.
+
+In this article, we'll delve into the heap data structure, understand its operations, and explore its practical implementations. We'll also look at why heaps are crucial for optimizing certain algorithms.
+
+## What is a Heap?
+
+A heap is a specialized binary tree-based data structure that satisfies the **heap property**:
+
+- **Min-Heap Property**: In a min-heap, for any given node `A`, the value of `A` is less than or equal to the values of its children. As a result, the minimum value is always at the root.
+- **Max-Heap Property**: In a max-heap, for any given node `A`, the value of `A` is greater than or equal to the values of its children. Consequently, the maximum value is always at the root.
+
+### Operations Supported by a Heap
+
+A heap typically supports the following operations:
+
+- **Add an element**: Inserting an element into the heap, maintaining the heap property, is done in $O(\log n)$ time.
+- **Remove the minimum (or maximum) element**: Removing the root element and rebalancing the heap to maintain the heap property takes $O(\log n)$ time.
+- **Find the minimum (or maximum) element**: Accessing the root element can be done in constant time $O(1)$.
+
+The ability to find the max/min element in constant time while maintaining this property through logarithmic time operations makes the heap a powerful data structure for many applications.
+
+## Binary Heap Implementation
+
+One of the most popular ways to implement a heap is through a **binary heap** using an array. Unlike the typical tree implementation that uses nodes and pointers, a binary heap leverages the structure of a binary tree while using a simple array to store elements.
+
+### Structure of a Binary Heap
+
+In a binary heap, the array representation follows this structure:
+
+- The element at index `0` is the root.
+- For any element at index `i`, the children are located at indices `2i + 1` and `2i + 2`.
+- The parent of any element at index `i` is located at index `(i - 1) // 2`.
+
+This mapping allows efficient traversal and manipulation of the heap structure while maintaining the complete tree property.
+
+### Complete Tree Property
+
+A binary heap is a **complete binary tree**, meaning all levels are fully filled except possibly the last level, which is filled from left to right. This property ensures that the tree is balanced, keeping the height logarithmic relative to the number of elements, which is crucial for the efficiency of heap operations.
+
+## Heap Operations Explained
+
+### 1. Adding an Element
+
+When adding an element to a heap:
+
+1. Place the new element at the end of the array.
+2. Perform a "bubble up" operation, where the new element is repeatedly swapped with its parent until the heap property is restored.
+
+The "bubble up" operation ensures that the heap property is maintained after each insertion.
+
+### 2. Removing the Minimum/Maximum Element
+
+To remove the root element:
+
+1. Replace the root with the last element in the array.
+2. Remove the last element.
+3. Perform a "bubble down" operation, where the root is repeatedly swapped with its smaller (or larger, in a max-heap) child until the heap property is restored.
+
+The "bubble down" operation ensures that the heap property is maintained after each removal.
+
+### 3. Finding the Minimum/Maximum Element
+
+The minimum (or maximum) element in a heap can always be found at the root, located at index `0`. This operation is $O(1)$.
+
+## Practical Applications of Heaps
+
+### Top K Elements
+
+One common problem is finding the `k` largest or smallest elements in an unsorted array. The naive approach is to sort the array and return the top `k` elements, which takes $O(n \log n)$ time. However, using a heap, this can be optimized to $O(n \log k)$.
+
+**Approach**:
+
+1. Insert the first `k` elements into a min-heap (if looking for the largest `k` elements) or a max-heap (if looking for the smallest `k` elements).
+2. For each remaining element in the array, compare it with the root of the heap. If the element is greater (or smaller for a min-heap), replace the root with the new element and "bubble down" to maintain the heap property.
+3. After processing all elements, the heap contains the top `k` elements.
+
+This approach is particularly useful in scenarios with large datasets where `k` is significantly smaller than `n`.
+
+### Median of a Stream
+
+Another advanced use of heaps is finding the median in a stream of numbers. This problem can be efficiently solved using **two heaps**:
+
+- A max-heap to store the lower half of the numbers.
+- A min-heap to store the upper half of the numbers.
+
+By balancing the sizes of the two heaps, the median can be efficiently calculated as either the root of one heap or the average of the roots of both heaps.
+
+## Implementation Guide
+
+Here's a basic guide to using heaps in Java:
+
+```java
+// Java's PriorityQueue class implements a min-heap by default
+PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+
+// Adding elements
+minHeap.add(10);
+minHeap.add(5);
+minHeap.add(20);
+
+// Finding the minimum element
+int min = minHeap.peek(); // Returns 5
+
+// Removing the minimum element
+int removedMin = minHeap.remove(); // Removes 5
+
+// Size of the heap
+int size = minHeap.size(); // Returns 2
+
+// Creating a max-heap
+PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Comparator.reverseOrder());
+maxHeap.add(10);
+maxHeap.add(5);
+maxHeap.add(20);
+```
