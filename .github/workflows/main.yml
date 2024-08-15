@@ -27,17 +27,35 @@ jobs:
 
       - name: Start SSH Agent and Add Key
         run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VPS_GG_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.VPS_SERVER_IP }} >> ~/.ssh/known_hosts
           eval "$(ssh-agent -s)"
-          echo "$SSH_PRIVATE_KEY" | ssh-add -
+          ssh-add ~/.ssh/id_rsa
           ssh-add -l
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.VPS_GG_SSH_PRIVATE_KEY }}
-
+      
       - name: Deploy to server
         run: |
-          ssh -t -vvv -o StrictHostKeyChecking=no ${{ secrets.VPS_SERVER_IP }} << 'EOF'
+          ssh -o StrictHostKeyChecking=no user@${{ secrets.VPS_SERVER_IP }} << 'EOF'
             docker pull ${{ secrets.DOCKER_USERNAME }}/nextjs-blog-app:latest
             docker stop your-container-name || true
             docker rm your-container-name || true
             docker run -d --name your-container-name -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/nextjs-blog-app:latest
           EOF
+      # - name: Start SSH Agent and Add Key
+      #   run: |
+      #     eval "$(ssh-agent -s)"
+      #     echo "$SSH_PRIVATE_KEY" | ssh-add -
+      #     ssh-add -l
+      #   env:
+      #     SSH_PRIVATE_KEY: ${{ secrets.VPS_GG_SSH_PRIVATE_KEY }}
+
+      # - name: Deploy to server
+      #   run: |
+      #     ssh -t -vvv -o StrictHostKeyChecking=no ${{ secrets.VPS_SERVER_IP }} << 'EOF'
+      #       docker pull ${{ secrets.DOCKER_USERNAME }}/nextjs-blog-app:latest
+      #       docker stop your-container-name || true
+      #       docker rm your-container-name || true
+      #       docker run -d --name your-container-name -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/nextjs-blog-app:latest
+      #     EOF
