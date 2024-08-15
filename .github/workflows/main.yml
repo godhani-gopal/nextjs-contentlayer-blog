@@ -32,9 +32,12 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.VPS_GG_SSH_PRIVATE_KEY }}
 
+      - name: List Loaded SSH Keys
+        run: ssh-add -l
+
       - name: Deploy to server
         run: |
-          ssh -o -t -t StrictHostKeyChecking=no ${{ secrets.VPS_SERVER_IP }} << 'EOF'
+          ssh -t -vvv -o StrictHostKeyChecking=no ${{ secrets.VPS_SERVER_IP }} << 'EOF'
             docker pull ${{ secrets.DOCKER_USERNAME }}/nextjs-blog-app:latest
             docker stop your-container-name || true
             docker rm your-container-name || true
