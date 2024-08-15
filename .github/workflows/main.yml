@@ -29,11 +29,9 @@ jobs:
         run: |
           eval "$(ssh-agent -s)"
           echo "$SSH_PRIVATE_KEY" | ssh-add -
+          ssh-add -l
         env:
           SSH_PRIVATE_KEY: ${{ secrets.VPS_GG_SSH_PRIVATE_KEY }}
-
-      - name: List Loaded SSH Keys
-        run: ssh-add -l
 
       - name: Deploy to server
         run: |
