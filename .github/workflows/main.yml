@@ -34,7 +34,7 @@ jobs:
 
       - name: Deploy to server
         run: |
-          ssh -o -T StrictHostKeyChecking=no ${{ secrets.VPS_SERVER_IP }} << 'EOF'
+          ssh -o -t -t StrictHostKeyChecking=no ${{ secrets.VPS_SERVER_IP }} << 'EOF'
             docker pull ${{ secrets.DOCKER_USERNAME }}/nextjs-blog-app:latest
             docker stop your-container-name || true
             docker rm your-container-name || true
