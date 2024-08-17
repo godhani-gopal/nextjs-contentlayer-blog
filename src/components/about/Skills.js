@@ -6,17 +6,15 @@ const SkillList = [
     "ReactJs",
     "RESTful APIs",
     "next.js",
+    "JWT",
     "SQL",
     "tailwind css",
-    "figma",
+    "Maven",
     "javaScript",
     "Web Design",
-    "Gatsby.js",
-    "firebase",
     "generative AI",
-    "wireframing",
+    "cloud",
     "SEO",
-    "framer motion",
 ];
 
 const Skills = () => {
