@@ -10,7 +10,7 @@ const siteMetadata = {
     socialBanner: '/social-banner.png', 
     email: 'contact@godhanigopal.com',
     github: 'https://github.com/godhani-gopal',
-    linkedin: 'https://www.linkedin.com/in/gopal-g-6682aaa9/',
+    linkedin: 'https://www.linkedin.com/in/gopal-godhani-6682aaa9/',
     website: 'https://godhanigopal.com',
     locale: 'en-US',
 }

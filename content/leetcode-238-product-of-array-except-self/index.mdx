@@ -1,0 +1,200 @@
+---
+title: "LeetCode 238. Product of Array Except Self"
+description: "Detailed exploration of the Product of Array Except Self problem, including solutions and complexity analysis."
+image: "../../public/blogs/leetcode-238-product-of-array-except-self.png"
+publishedAt: "2024-08-20"
+updatedAt: "2024-08-20"
+author: "Gopal Godhani"
+isPublished: true
+tags:
+  - leetcode
+  - coding interviews
+  - programming
+  - medium difficulty
+  - arrays
+  - product
+---
+
+## LeetCode 238. Product of Array Except Self
+
+Difficulty: <span style={{ backgroundColor: '#ffc107', color: 'black', borderRadius: '5px', padding: '2px 8px', fontSize: '0.9em' }}>Medium</span>  
+Topics: Arrays, Product
+
+The [Product of Array Except Self problem](https://leetcode.com/problems/product-of-array-except-self/) is a great exercise in array manipulation and algorithm design. It challenges you to compute the product of all elements in an array, excluding the current element, without using division and with linear time complexity.
+
+This problem is a great example of how to tackle constraints and think creatively to optimize solutions beyond basic approaches.
+
+## Problem Statement
+
+Given an integer array `nums{:java}`, return an array answer such that `answer[i]{:java}` is equal to the product of all the elements of `nums{:java}` except `nums[i]{:java}`.
+
+You must write an algorithm that runs in `O(n){:java}` time and without using the division operation.
+
+The product of any prefix or suffix of `nums{:java}` is guaranteed to fit in a **32-bit** integer.
+
+### Examples
+
+**Example 1:**
+
+- Input: `nums = [1,2,3,4]{:java}`
+- Output: `[24,12,8,6]{:java}`
+
+**Example 2:**
+
+- Input: `nums = [-1,1,0,-3,3]{:java}`
+- Output: `[0,0,9,0,0]{:java}`
+
+### Constraints
+
+- 2 ≤ `nums.length{:java}` ≤ 105
+- -30 ≤ `nums[i]{:java}` ≤ 30
+  The product of any prefix or suffix of `nums{:java}` is guaranteed to fit in a **32-bit** integer.
+
+## Approaches and Solutions
+
+### Brute Force Approach: A Naive Solution ❌
+
+**Approach**
+
+The brute force approach involves calculating the product of all elements except the current one for each index by iterating over the entire array. For each element at index i, you would multiply all the elements except nums[i] and store the result in the answer array.
+
+**Algorithm**
+
+1. Iterate through each element i of the array.
+2. For each element i, calculate the product of all other elements by iterating through the array again.
+3. Store the result in a new array.
+
+```java title="Java"
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int length = nums.length;
+        int[] result = new int[length];
+        for (int i = 0; i < length; i++) {
+            result[i] = 1;
+            for (int j = 0; j < length; j++) {
+                if (i != j) {
+                    result[i] *= nums[j];
+                }
+            }
+        }
+        return result;
+    }
+}
+```
+
+**Complexity Analysis**
+
+- Time complexity: O(n<sup>2</sup>)
+  → For each element, we calculate the product of all other elements which results in O(n<sup>2</sup>) complexity.
+- Space complexity: O(1)
+  → The space required is constant, excluding the output array.
+
+Although it doesn’t use extra space, the poor time complexity outweighs this benefit making it unsuitable for large input sizes.
+
+### Prefix and Suffix Arrays 👍
+
+**Approach**
+
+The prefix and suffix arrays approach involves creating two additional arrays to store cumulative products from the left (prefix) and the right (suffix) of the current index. The final product for each index is obtained by multiplying the prefix product of the previous index with the suffix product of the next index.
+
+**Algorithm**
+
+1. Initialize two arrays, prefix and suffix, of the same size as the input array.
+2. Calculate the prefix products for all elements.
+3. Calculate the suffix products for all elements.
+4. Multiply the corresponding prefix and suffix values to get the final product for each index.
+
+```java title="Java"
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int length = nums.length;
+        int[] prefixProducts = new int[length];
+        int[] suffixProducts = new int[length];
+        int[] result = new int[length];
+
+        prefixProducts[0] = nums[0];
+        suffixProducts[length - 1] = nums[length - 1];
+
+        for (int i = 1; i < length; ++i) {
+            prefixProducts[i] = nums[i] * prefixProducts[i - 1];
+        }
+
+        for (int i = length - 2; i >= 0; --i) {
+            suffixProducts[i] = suffixProducts[i + 1] * nums[i];
+        }
+
+        result[0] = suffixProducts[1];
+        result[length - 1] = prefixProducts[length - 2];
+
+        for (int i = 1; i < length - 1; ++i) {
+            result[i] = prefixProducts[i - 1] * suffixProducts[i + 1];
+        }
+
+        return result;
+    }
+}
+```
+
+**Complexity Analysis**
+
+- Time complexity: O(n)
+  → The array is traversed twice, making the time complexity linear.
+- Space complexity: O(n)
+  → Additional space is required for the prefix and suffix arrays.
+
+This approach efficiently balances time complexity and space usage, making it suitable for large input sizes, though it does require extra space.
+
+### Optimized Approach: In-Place Prefix and Suffix Calculation ✅
+
+**Approach**
+
+The optimized approach eliminates the need for extra space by reusing the output array to store prefix products first, and then multiplying by the suffix products in a single pass. This reduces the space complexity to O(1) beyond the input and output arrays.
+
+**Algorithm**
+
+1. Initialize an array answer of the same size as the input array.
+2. Compute prefix products while storing them directly in the answer array.
+3. Traverse the array in reverse to compute suffix products while multiplying them with the stored prefix products in the answer array.
+
+```java title="Java"
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int length = nums.length;
+        int[] result = new int[length];
+
+        result[0] = 1;
+        for (int i = 1; i < length; ++i) {
+            result[i] = result[i - 1] * nums[i - 1];
+        }
+
+        int suffixProduct = nums[length - 1];
+        for (int i = length - 2; i >= 0; --i) {
+            result[i] = suffixProduct * result[i];
+            suffixProduct *= nums[i];
+        }
+
+        return result;
+    }
+}
+```
+
+**Complexity Analysis**
+
+- Time complexity: O(n)
+  → The array is traversed twice, resulting in O(n) time complexity.
+- Space complexity: O(1)
+  → This solution only uses the output array for storage, requiring no extra space beyond that.
+
+This approach is optimal for both time and space, making it the most efficient solution for large input sizes.
+
+## What's Next?
+
+- [**Maximum Subarray**](https://leetcode.com/problems/maximum-subarray/) <span style={{ backgroundColor: '#ffc107', color: 'black', borderRadius: '5px', padding: '2px 8px', fontSize: '0.9em' }}>Medium</span>
+
+## Related Problems You Might Like
+
+- [**Trapping Rain Water**](https://leetcode.com/problems/trapping-rain-water/) <span style={{ backgroundColor: '#dc3545', color: 'white', borderRadius: '5px', padding: '2px 8px', fontSize: '0.9em' }}>Hard</span>
+- [**Maximum Product Subarray**](https://leetcode.com/problems/maximum-product-subarray/) <span style={{ backgroundColor: '#ffc107', color: 'black', borderRadius: '5px', padding: '2px 8px', fontSize: '0.9em' }}>Medium</span>
+- [**Paint House II**](https://leetcode.com/problems/paint-house-ii/) <span style={{ backgroundColor: '#dc3545', color: 'white', borderRadius: '5px', padding: '2px 8px', fontSize: '0.9em' }}>Hard</span> <span style={{ backgroundColor: '#7b00d3', color: 'white', borderRadius: '5px', padding: '2px 8px', fontSize: '0.9em' }}>Premium</span>
+- [**Minimum Difference in Sums After Removal of Elements**](https://leetcode.com/problems/minimum-difference-in-sums-after-removal-of-elements/) <span style={{ backgroundColor: '#ffc107', color: 'black', borderRadius: '5px', padding: '2px 8px', fontSize: '0.9em' }}>Medium</span>
+- [**Construct Product Matrix**](https://leetcode.com/problems/construct-product-matrix/) <span style={{ backgroundColor: '#ffc107', color: 'black', borderRadius: '5px', padding: '2px 8px', fontSize: '0.9em' }}>Medium</span>

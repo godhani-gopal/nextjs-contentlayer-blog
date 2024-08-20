@@ -1,0 +1,186 @@
+---
+title: "Google Trends"
+description: Documentation for google trends project.
+image: "../../public/blogs/google-trends.png"
+publishedAt: "2024-07-30"
+updatedAt: "2024-07-30"
+author: "Gopal Godhani"
+isPublished: true
+tags:
+  - project
+  - spring Boot
+  - java
+  - jwt
+  - backend
+  - rest api
+---
+
+## Introduction
+
+### Project Overview
+
+Welcome to the world of trend analysis with our Google Trends REST API project! In an age where data-driven decisions are pivotal, understanding trends can give you a competitive edge. Our project leverages the power of Google's vast search data to provide insightful trend analysis through a robust and scalable REST API. This API allows users to query and analyze search trends, providing valuable insights into popular topics and emerging patterns.
+
+Imagine having the ability to track what people are interested in over time, compare search trends across different regions, and uncover hidden patterns in search behavior. This project transforms that vision into reality, making trend analysis accessible and actionable for businesses, researchers, and enthusiasts alike.
+
+### Technologies Used
+
+Our Google Trends REST API project is built on a solid foundation of modern technologies:
+
+- **Spring Boot:** The backbone of our application, enabling rapid development of production-ready applications with ease. Spring Boot's auto-configuration and embedded server capabilities streamline our development process.
+- **JPA (Java Persistence API):** Provides a robust way to manage and access relational data, ensuring seamless interaction with our database.
+- **Hibernate:** The ORM framework used to map Java objects to database tables, handling data persistence with efficiency.
+- **Maven:** Our build tool of choice, managing dependencies and ensuring a smooth build and deployment process.
+- **MySQL:** The relational database that stores our trend data, offering reliability and performance for data operations.
+
+### Project Structure
+
+Our project is organized to facilitate clear development and ease of use:
+
+- **`src/main/java`**: Contains the core Java source code for the application. Here you'll find the main application class, controller classes handling HTTP requests, and service classes implementing business logic.
+- **`src/main/resources`**: Houses configuration files such as `application.properties` or `application.yml`, which are essential for configuring the application's settings.
+- **`src/main/resources/static`**: If applicable, this directory stores static assets like HTML files or client-side resources.
+
+By understanding this structure, you can easily navigate the project and contribute to its development or customization. Dive in, explore the API, and see how you can leverage trend data to drive your insights and decisions!
+
+## Application Configuration
+
+### Configuration Files
+
+In our Google Trends REST API project, several key configuration files manage the application’s setup and integration with external services:
+
+- **`AIConfig`**: This configuration sets up the AI chat client, allowing the application to interact with AI chat services and enhance its functionality.
+
+- **`GCPConfig`**: Responsible for configuring Google Cloud Platform services. It sets up connections to Google BigQuery, handles OAuth2 client ID verification, and manages service account credentials for secure access to Google Cloud resources.
+
+- **`SecurityConfig`**: Configures the security settings of the application. It defines access controls, manages authentication and authorization, and integrates JWT-based security filters to ensure that only authorized users can access certain endpoints.
+
+## Features and Functionality
+
+### Endpoints
+
+**Authentication API**
+
+| Endpoint               | Description                                           | Request Parameters                                 | Response                                                                                                                                                                       |
+| ---------------------- | ----------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `GET /oauth2/callback` | Handles Google OAuth2 callback and sets a JWT cookie. | `code` (required): Authorization code from Google. | **HTTP Status**: 302 Redirect<br/>**Headers**: Sets `Set-Cookie` header with JWT token<br/>**Body**: Message indicating successful Google login and redirection to Swagger UI. |
+
+**International Top Rising Terms API**
+
+| Endpoint                                                                  | Description                                                   | Request Parameters                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Response                                                                                        |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `GET /api/international-top-rising-terms/paginated`                       | Retrieves a paginated list of international top rising terms. | `term` (optional): Term identifier<br/>`percentGain` (optional): Percentage gain<br/>`week` (optional): ISO date<br/>`score` (optional): Popularity score (0-100)<br/>`rank` (optional): Rank (1-25)<br/>`refreshDate` (optional): Date of data update<br/>`countryName` (optional): Country name<br/>`countryCode` (optional): ISO country code<br/>`regionName` (optional): Region name<br/>`regionCode` (optional): ISO region code<br/>`numOfTerms` (optional): Number of terms<br/>`pageable` (optional): Pagination and sorting. | **HTTP Status**: 200 OK<br/>**Body**: Paginated list of `InternationalTopRisingTerms` objects.  |
+| `POST /api/international-top-rising-terms/load-data-from-bigquery`        | Loads data from BigQuery to MySQL.                            | No parameters required.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | **HTTP Status**: 200 OK<br/>**Body**: Message indicating the total number of records saved.     |
+| `POST /api/international-top-rising-terms/load-data-from-bigquery/latest` | Loads the latest data from BigQuery to MySQL.                 | No parameters required.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | **HTTP Status**: 200 OK<br/>**Body**: Message indicating the total number of new records added. |
+| `GET /api/international-top-rising-terms/latest-week`                     | Retrieves the most recent week value from the database.       | No parameters required.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | **HTTP Status**: 200 OK<br/>**Body**: Latest week value as `LocalDate`.                         |
+| `GET /api/international-top-rising-terms/predictive-insights`             | Provides predictive insights using ChatGPT.                   | `InternationalTopRisingTerms` (required): Data for analysis.                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | **HTTP Status**: 200 OK<br/>**Body**: Predictive insights as `TermAnalysis` object.             |
+
+**International Top Terms API**
+
+| Endpoint                                                           | Description                                                                              | Request Parameters                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Response                                                                                        |
+| ------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `GET /api/international-top-terms/paginated`                       | Retrieves a paginated list of international top terms with optional filters and sorting. | `term` (optional): Term identifier<br/>`week` (optional): ISO date<br/>`score` (optional): Popularity score (0-100)<br/>`rank` (optional): Rank (1-25)<br/>`refreshDate` (optional): Date of data update<br/>`countryName` (optional): Country name<br/>`countryCode` (optional): ISO country code<br/>`regionName` (optional): Region name<br/>`regionCode` (optional): ISO region code<br/>`numOfTerms` (optional): Number of terms<br/>`pageable` (optional): Pagination and sorting. | **HTTP Status**: 200 OK<br/>**Body**: Paginated list of `InternationalTopTerms` objects.        |
+| `GET /api/international-top-terms/search/terms`                    | Searches and returns a list of terms containing the specified substring.                 | `term` (required): Substring to search within terms.                                                                                                                                                                                                                                                                                                                                                                                                                                     | **HTTP Status**: 200 OK<br/>**Body**: List of matching terms.                                   |
+| `POST /api/international-top-terms/load-data-from-bigquery`        | Loads 50,000 rows from BigQuery to MySQL.                                                | No parameters required.                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | **HTTP Status**: 200 OK<br/>**Body**: Message indicating the total number of records saved.     |
+| `POST /api/international-top-terms/load-data-from-bigquery/latest` | Loads the latest data from BigQuery to MySQL.                                            | No parameters required.                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | **HTTP Status**: 200 OK<br/>**Body**: Message indicating the total number of new records added. |
+| `GET /api/international-top-terms/latest-week`                     | Retrieves the most recent week value from the database.                                  | No parameters required.                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | **HTTP Status**: 200 OK<br/>**Body**: Latest week value as `LocalDate`.                         |
+| `GET /api/international-top-terms/predictive-insights`             | Provides predictive insights using OpenAI's ChatGPT.                                     | `InternationalTopTerms` (required): Data for analysis.                                                                                                                                                                                                                                                                                                                                                                                                                                   | **HTTP Status**: 200 OK<br/>**Body**: Predictive insights as `TermAnalysis` object.             |
+
+**Top Rising Terms API - U.S. Domestic**
+
+| Endpoint                                                    | Description                                                                                        | Request Parameters                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Response                                                                                        |
+| ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| `POST /api/top-rising-terms/load-data-from-bigquery`        | Loads data from BigQuery to MySQL. Only accessible to users with the `ROLE_ADMIN` role.            | No parameters required.                                                                                                                                                                                                                                                                                                                                                                                                                                            | **HTTP Status**: 200 OK<br/>**Body**: Message indicating the total number of records saved.     |
+| `POST /api/top-rising-terms/load-data-from-bigquery/latest` | Loads the latest data from BigQuery to MySQL. Only accessible to users with the `ROLE_ADMIN` role. | No parameters required.                                                                                                                                                                                                                                                                                                                                                                                                                                            | **HTTP Status**: 200 OK<br/>**Body**: Message indicating the total number of new records added. |
+| `GET /api/top-rising-terms/latest-week`                     | Retrieves the most recent week value.                                                              | No parameters required.                                                                                                                                                                                                                                                                                                                                                                                                                                            | **HTTP Status**: 200 OK<br/>**Body**: Latest week value as `LocalDate`.                         |
+| `GET /api/top-rising-terms/paginated`                       | Fetches top rising terms in the USA based on provided query parameters.                            | `dmaName` (optional): Designated Market Area name (e.g., "New York")<br/>`dmaId` (optional): 3-digit DMA ID<br/>`week` (optional): ISO date<br/>`term` (optional): Term identifier<br/>`percentGain` (optional): Percentage gain<br/>`rank` (optional): Rank (1-25)<br/>`score` (optional): Popularity score (1-100)<br/>`page` (optional): Page number (default: 0)<br/>`pageSize` (optional): Page size (default: 10)<br/>`sort` (optional): Sorting parameters. | **HTTP Status**: 200 OK<br/>**Body**: Paginated list of `TopRisingTerms` objects.               |
+| `GET /api/top-rising-terms/predictive-insights`             | Provides predictive insights using ChatGPT.                                                        | `TopRisingTerms` (required): Data for analysis.                                                                                                                                                                                                                                                                                                                                                                                                                    | **HTTP Status**: 200 OK<br/>**Body**: Predictive insights as `TermAnalysis` object.             |
+
+**Top Terms API - U.S. Domestic**
+
+| Endpoint                                             | Description                                                                                                     | Request Parameters                                                                                                                                                                                                                                                                                                                                                                                                   | Response                                                                                        |
+| ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `POST /api/top-terms/load-data-from-bigquery`        | Loads data from BigQuery and saves it to MySQL. Only accessible to users with the `ROLE_ADMIN` role.            | No parameters required.                                                                                                                                                                                                                                                                                                                                                                                              | **HTTP Status**: 200 OK<br/>**Body**: Message indicating the total number of records saved.     |
+| `POST /api/top-terms/load-data-from-bigquery/latest` | Loads the latest data from BigQuery and saves it to MySQL. Only accessible to users with the `ROLE_ADMIN` role. | No parameters required.                                                                                                                                                                                                                                                                                                                                                                                              | **HTTP Status**: 200 OK<br/>**Body**: Message indicating the total number of new records added. |
+| `GET /api/top-terms/paginated`                       | Fetches top terms in the USA based on the provided query parameters.                                            | `dmaName` (optional): Designated Market Area name (e.g., "New York")<br/>`dmaId` (optional): 3-digit DMA ID<br/>`week` (optional): ISO date<br/>`term` (optional): Term identifier<br/>`rank` (optional): Rank (1-25)<br/>`score` (optional): Popularity score (1-100)<br/>`page` (optional): Page number (default: 0)<br/>`pageSize` (optional): Page size (default: 10)<br/>`sort` (optional): Sorting parameters. | **HTTP Status**: 200 OK<br/>**Body**: Paginated list of `TopTerms` objects.                     |
+| `GET /api/top-terms/predictive-insights`             | Provides predictive insights based on the provided terms.                                                       | `TopTerms` (required): Data for analysis.                                                                                                                                                                                                                                                                                                                                                                            | **HTTP Status**: 200 OK<br/>**Body**: Predictive insights as `TermAnalysis` object.             |
+
+### Exception Handling
+
+Effective exception handling is crucial for ensuring a smooth and user-friendly experience in our Spring Boot application. I've used a comprehensive approach to handle various exceptions:
+
+- **GlobalExceptionHandler**: This class manages exceptions across the application, extending `ResponseEntityExceptionHandler` and annotated with `@ControllerAdvice` for global exception handling. It addresses:
+
+  - **Validation Errors**:
+
+    - **`BindException`** and **`MethodArgumentNotValidException`**: Returns a detailed map of errors specifying which fields are problematic and the associated messages.
+
+  - **Authorization and Access Issues**:
+
+    - **`AuthorizationDeniedException`** and **`AccessDeniedException`**: Handles authorization failures, returning a `FORBIDDEN` status with messages indicating why access was denied and the request context.
+
+  - **General Exceptions**:
+    - **`Exception`**: Manages unexpected issues, returning an `INTERNAL_SERVER_ERROR` status with a generic error message to maintain consistency.
+
+- **Specific Exceptions**:
+
+  - **`ResourceNotFoundException`**: Thrown when a requested resource cannot be found. It provides details about the resource, the field searched, and the value used.
+
+  - **`QueryExecutionException`**: Handles errors during query execution. It provides information about the query and the cause of the error, which helps diagnose issues related to database operations.
+
+**Error Responses**:
+
+- **Validation Errors**: Include a map of field errors and messages to assist users in correcting their input.
+- **Access Denied**: Responses include a `FORBIDDEN` status and details about the request context, clarifying why access was denied.
+- **General Errors**: Result in a generic `INTERNAL_SERVER_ERROR` response, maintaining consistency even for unexpected issues.
+
+## Database
+
+Our application integrates with both MySQL and Google Cloud BigQuery to handle data storage and processing efficiently. The database architecture and practices are designed to support robust and scalable data management.
+
+**Database Schema and Relationships:**
+The database schema is crafted to manage international top rising terms and related metrics. It includes tables for storing data on search term trends, incorporating fields such as term, percentage gain, week, score, rank, and geographical details. These tables are structured to facilitate effective querying and analysis.
+
+**Entity Models:**
+The app uses Java Persistence API (JPA) to model our entities, which are mapped to the database tables. The entities are annotated with validation constraints to ensure data integrity and consistency. The app leverages JPA’s repository patterns and JPQL queries for efficient data access and manipulation.
+
+**Data Access:**
+The application employs a repository pattern to abstract data access logic, using `JpaRepository` for CRUD operations and custom JPQL queries where needed. Method names follow JPA conventions to simplify query creation and execution.
+
+**Integration with BigQuery and MySQL:**
+Due to the limitations of BigQuery’s free tier, I've used a cron job-based service to periodically transfer data from BigQuery to MySQL. This service ensures that our MySQL database is updated with the most recent data, specifically fetching records from BigQuery that are newer than the latest `week` value in MySQL for each table. This approach optimizes data retrieval and maintains synchronization between BigQuery and MySQL.
+
+**Validation and Exception Handling:**
+Entity validation annotations are used to enforce constraints such as non-null values and specific patterns, ensuring the quality of data stored. Exception handling mechanisms are implemented to manage and respond to any issues encountered during data access and processing.
+
+By combining JPA for entity management, MySQL for transactional storage, and BigQuery for large-scale data analytics, our application achieves a balance of performance and scalability, catering to both operational and analytical requirements.
+
+## Security
+
+Ensuring robust security is crucial for safeguarding user data and maintaining the integrity of the application. Our project employs a combination of authentication, authorization, and access control mechanisms to achieve a secure environment.
+
+**Authentication and Authorization:**
+The security of our application is managed through JWT (JSON Web Tokens) and OAuth2 protocols.
+
+- **JWT Authentication:** I've used JWTs to handle authentication. The `JwtAuthenticationFilter` class is responsible for extracting and validating JWT tokens from HTTP requests. It ensures that each request has a valid token and sets the authentication context accordingly.
+
+- **OAuth2 Integration:** For external authentication, particularly with Google, I've used OAuth2. The `GoogleJwtProvider` class handles the OAuth2 flow, including token retrieval and validation. This component interacts with Google’s APIs to obtain and verify JWTs. It also manages user roles, distinguishing between admin and regular users based on their email addresses.
+
+**Access Control:**
+Access control is implemented to restrict user actions based on roles and permissions.
+
+- **Security Configuration:** The `SecurityConfig` class configures security settings using Spring Security. It specifies public access for certain endpoints (e.g., registration and login pages) while requiring authentication for all other requests. It disables CSRF protection for simplicity in this context and integrates the `JwtAuthenticationFilter` to enforce token-based authentication.
+
+- **Roles and Permissions:** The application supports role-based access control. Users are assigned roles such as `ROLE_ADMIN` or `ROLE_USER`, which determine their level of access. Admins have broader permissions compared to regular users. This role differentiation is managed through the `GoogleJwtProvider` class, which assigns roles based on email addresses obtained from the JWT payload.
+
+Overall, our security setup combines JWT authentication for secure session management and OAuth2 for external authentication, ensuring a protected and well-managed access control system.
+
+## Conclusion
+
+I'm excited to share that the application is live and accessible at [https://googletrends.godhanigopal.com](https://googletrends.godhanigopal.com). Feel free to visit the site, explore its features, and experience the functionality firsthand.
+
+Users can log in and test the APIs, interacting with the dynamic data and features I've integrated. This project is a comprehensive demonstration of modern web application development, showcasing the integration of advanced technologies like Spring Boot, React, and Google BigQuery, along with robust security practices.
+
+I've implemented a secure authentication system using JWT and OAuth2, ensuring that all user interactions are protected and that access is controlled based on user roles. With a well-defined database schema and efficient data access mechanisms, the application is designed to handle and display data seamlessly.
+
+Thank you for following along with our development journey. I hope this blog has provided valuable insights into the technical aspects and implementation details of the project. Your feedback and questions are always welcome as I continue to enhance and expand the application. Stay tuned for future updates and improvements!

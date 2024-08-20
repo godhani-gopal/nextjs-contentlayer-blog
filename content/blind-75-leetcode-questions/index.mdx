@@ -19,47 +19,6 @@ tags:
 
 The LeetCode Blind 75 list is a curated set of 75 problems that are essential for coding interview preparation. This guide categorizes each problem by topic, providing descriptions, difficulty levels, and links to both the LeetCode problem pages and detailed solutions.
 
-**Example 1:**
-
-**Input:** `nums = [2,7,11,15], target = 9{:java}`  
-**Output:** `[0,1]{:java}`  
-**Explanation:** Because `nums[0] + nums[1] == 9{:java}`, we return `[0, 1]{:java}`.
-
-**Example 2:**
-
-**Input:** nums = [3,2,4], target = 6  
-**Output:** [1,2]
-
-**Example 3:**
-
-**Input:** nums = [3,3], target = 6  
-**Output:** [0,1]
-
-**Constraints:**
-
-- `2 <= nums.length <= 10^4{:java}`
-- `-10^9 <= nums[i] <= 10^9{:java}`
-- `-10^9 <= target <= 10^9{:java}`
-- **Only one valid answer exists.**
-
-```java
-class Solution {
-    public int[] twoSum(int[] nums, int target) {
-        Map<Integer, Integer> map = new HashMap<>();
-        
-        for (int i = 0; i < nums.length; i++) {
-            int currentValue = nums[i];
-            int complement = target - currentValue;
-            if (map.containsKey(complement)) {
-                return new int[] { map.get(complement), i };
-            }
-            map.put(currentValue, i);
-        }
-        return null;
-    }
-}
-```
-
 ## Arrays
 
 ### Resources to Learn About Arrays
@@ -78,10 +37,10 @@ class Solution {
 
 | Problem | Description | Difficulty | Solution |
 |---------|-------------|------------|----------|
-| [Two Sum](https://leetcode.com/problems/two-sum/) | Find two numbers in an array that add up to a given target. You cannot use the same element twice. | Easy | [Detailed Solution](link-to-your-article) |
+| [Two Sum](https://leetcode.com/problems/two-sum/) | Find two numbers in an array that add up to a given target. You cannot use the same element twice. | Easy | [Detailed Solution](/blogs/leetcode-1-two-sum) |
 | [Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/) | Find the maximum profit you can achieve from buying and selling stock. | Easy | [Detailed Solution](link-to-your-article) |
 | [Contains Duplicate](https://leetcode.com/problems/contains-duplicate/) | Determine if an array contains any duplicates. | Easy | [Detailed Solution](link-to-your-article) |
-| [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) | Given an array, return an array output such that output[i] is equal to the product of all the elements of nums except nums[i]. | Medium | [Detailed Solution](link-to-your-article) |
+| [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) | Given an array, return an array output such that output[i] is equal to the product of all the elements of nums except nums[i]. | Medium | [Detailed Solution](/blogs/leetcode-238-product-of-array-except-self)) |
 | [Maximum Subarray](https://leetcode.com/problems/maximum-subarray/) | Find the contiguous subarray which has the largest sum. | Easy | [Detailed Solution](link-to-your-article) |
 | [Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/) | Find the contiguous subarray within an array which has the largest product. | Medium | [Detailed Solution](link-to-your-article) |
 | [Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/) | Find the minimum element in a rotated sorted array. | Medium | [Detailed Solution](link-to-your-article) |
