@@ -1,0 +1,146 @@
+---
+title: "LeetCode 121. Best Time to Buy and Sell Stock"
+description: "A detailed explanation of LeetCode problem 121, exploring various approaches to solve the 'Best Time to Buy and Sell Stock' problem efficiently."
+image: "../../public/blogs/leetcode-121-best-time-to-buy-and-sell-stock.png"
+publishedAt: "2024-08-30"
+updatedAt: "2024-08-30"
+author: "Gopal Godhani"
+isPublished: true
+tags:
+  - leetcode
+  - coding interviews
+  - programming
+  - blind 75
+  - arrays
+---
+
+## LeetCode 121. Best Time to Buy and Sell Stock
+
+**Difficulty:** <span style={{ backgroundColor: '#28a745', color: 'white', borderRadius: '5px', padding: '2px 8px', fontSize: '0.9em' }}>Easy</span>  
+**Topics:** Arrays, Dynamic Programming
+
+Best Time to Buy and Sell Stock is a classic problem that tests your ability to maximize profit given a set of stock prices over time. The problem challenges you to find the optimal day to buy and sell stocks to achieve the highest profit, while adhering to the constraints of a single buy and sell operation. It serves as an excellent introduction to dynamic programming and efficient algorithm design, encouraging you to think critically about minimizing time complexity.
+
+## Introduction
+
+The **Best Time to Buy and Sell Stock** problem is a classic example of maximizing profit under given constraints. It's one of the foundational problems in the **Blind 75** list and frequently appears in coding interviews. The goal is simple: given an array of stock prices, you need to find the maximum profit that can be achieved by buying and selling the stock on different days.
+
+This problem tests your ability to optimize the solution using efficient algorithms and is an excellent exercise for improving your understanding of array manipulation.
+
+## Problem Statement
+
+Given an array `prices` where `prices[i]` is the price of a given stock on the `i-th` day, find the maximum profit you can achieve from one transaction. You may not engage in multiple transactions at once (i.e., you must sell the stock before you buy again).
+
+**Objective**:  
+Maximize the profit by choosing a single day to buy one stock and a different day in the future to sell that stock.
+
+### Example
+
+**Input:** `prices = [7, 1, 5, 3, 6, 4]`  
+**Output:** `5`
+
+**Explanation:**  
+Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6 - 1 = 5.  
+Note that the profit cannot be 7 - 1 = 6, as the selling price needs to be after the buying price.
+
+### Constraints
+
+- 1 ≤ prices.length ≤ 10<sup>5</sup>
+- 0 ≤ prices[i] ≤ 10<sup>4</sup>
+
+## Approaches and Solutions
+
+### Brute Force Approach ❌
+
+**Description:**  
+In the brute force approach, we check all possible pairs of buying and selling days. For each day `i{:java}`, we assume it's the buying day and check all subsequent days `j{:java}` for potential selling days. The maximum profit is computed by keeping track of the highest difference between `prices[j] - prices[i]{:java}`.
+
+**Algorithm:**
+
+1. Initialize `maxProfit` to 0.
+2. Iterate through the array with two nested loops:
+   - Outer loop for the buying day `i{:java}`.
+   - Inner loop for the selling day `j{:java}` where `j > i{:java}`.
+3. Calculate the profit as `prices[j] - prices[i]` and update `maxProfit` if this profit is greater.
+
+**Code:**
+
+```java
+class Solution {
+    public int maxProfit(int[] prices) {
+        int maxProfit = 0;
+        for (int i = 0; i < prices.length - 1; i++) {
+            for (int j = i + 1; j < prices.length; j++) {
+                int profit = prices[j] - prices[i];
+                if (profit > maxProfit) {
+                    maxProfit = profit;
+                }
+            }
+        }
+        return maxProfit;
+    }
+}
+```
+
+**Complexity Analysis**
+
+- Time complexity: O(n<sup>2</sup>)  
+  → This approach involves nested loops, resulting in a quadratic time complexity. As a result, it is highly inefficient for large input sizes and is likely to trigger a Time Limit Exceeded (TLE) error on platforms like LeetCode.
+- Space complexity: O(1)  
+  → The space required does not depend on the size of the input array, so only constant space is used.
+
+### Optimized Approach Using Minimum Price Tracking ✅
+
+**Description:**  
+This approach improves on the brute force method by eliminating the need for nested loops. Instead, it keeps track of the minimum price encountered so far while iterating through the array once. For each price, it calculates the profit if that day were a selling day, and updates the maximum profit accordingly.
+
+**Algorithm:**
+
+1. Initialize `minPrice` to `Integer.MAX_VALUE` and `maxProfit` to 0.
+2. Iterate through the array:
+   - For each price, update `minPrice` to the smaller of `minPrice` and the current price.
+   - Calculate the potential profit as the difference between the current price and `minPrice`.
+   - Update `maxProfit` if the potential profit is greater than the current `maxProfit`.
+
+**Code:**
+
+```java
+class Solution {
+    public int maxProfit(int[] prices) {
+        int minPrice = Integer.MAX_VALUE;
+        int maxProfit = 0;
+
+        for (int price : prices) {
+            if (price < minPrice) {
+                minPrice = price;
+            } else if (price - minPrice > maxProfit) {
+                maxProfit = price - minPrice;
+            }
+        }
+        return maxProfit;
+    }
+}
+```
+
+**Complexity Analysis**
+
+- Time complexity: O(n)  
+  → This approach only requires a single pass through the array, making it linear in time complexity, which is efficient and suitable for large input sizes.
+- Space complexity: O(1)  
+   → It uses only a constant amount of additional space to store minPrice and maxProfit.  
+  Overall, this solution is efficient and should be preferred over the brute force approach due to its linear runtime.
+
+## What's Next?
+
+- [**Contains Duplicate**](https://leetcode.com/problems/contains-duplicate/) <span style={{ backgroundColor: '#28a745', color: 'white', borderRadius: '5px', padding: '2px 8px', fontSize: '0.9em' }}>Easy</span>
+
+## Related Problems You Might Like
+
+- [**Maximum Subarray**](https://leetcode.com/problems/maximum-subarray/) <span style={{ backgroundColor: '#ffc107', color: 'black', borderRadius: '5px', padding: '2px 8px', fontSize: '0.9em' }}>Medium</span>
+- [**Best Time to Buy and Sell Stock II**](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/) <span style={{ backgroundColor: '#ffc107', color: 'black', borderRadius: '5px', padding: '2px 8px', fontSize: '0.9em' }}>Medium</span>
+- [**Best Time to Buy and Sell Stock III**](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/) <span style={{ backgroundColor: '#dc3545', color: 'white', borderRadius: '5px', padding: '2px 8px', fontSize: '0.9em' }}>Hard</span>
+- [**Best Time to Buy and Sell Stock IV**](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/) <span style={{ backgroundColor: '#dc3545', color: 'white', borderRadius: '5px', padding: '2px 8px', fontSize: '0.9em' }}>Hard</span>
+- [**Best Time to Buy and Sell Stock with Cooldown**](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/) <span style={{ backgroundColor: '#ffc107', color: 'black', borderRadius: '5px', padding: '2px 8px', fontSize: '0.9em' }}>Medium</span>
+- [**Sum of Beauty in the Array**](https://leetcode.com/problems/sum-of-beauty-in-the-array/) <span style={{ backgroundColor: '#ffc107', color: 'black', borderRadius: '5px', padding: '2px 8px', fontSize: '0.9em' }}>Medium</span>
+- [**Maximum Difference Between Increasing Elements**](https://leetcode.com/problems/maximum-difference-between-increasing-elements/) <span style={{ backgroundColor: '#28a745', color: 'white', borderRadius: '5px', padding: '2px 8px', fontSize: '0.9em' }}>Easy</span>
+- [**Maximum Profit From Trading Stocks**](https://leetcode.com/problems/maximum-profit-from-trading-stocks/) <span style={{ backgroundColor: '#ffc107', color: 'black', borderRadius: '5px', padding: '2px 8px', fontSize: '0.9em' }}>Medium</span> <span style={{ backgroundColor: '#7b00d3', color: 'white', borderRadius: '5px', padding: '2px 8px', fontSize: '0.9em' }}>Premium</span>
